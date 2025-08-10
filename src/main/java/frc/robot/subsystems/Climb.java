@@ -37,8 +37,6 @@ public class Climb extends SubsystemBase {
     }
     return instance;
   }
-
-  private Compressor compressor = new Compressor(ClimbConstants.PCM_ID ,PneumaticsModuleType.CTREPCM);
   private DoubleSolenoid climbSolenoid = null;
   
   private Climb() {
@@ -46,19 +44,11 @@ public class Climb extends SubsystemBase {
     climbSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, ClimbConstants.SHOOTER_PITCH_SOLENOID_DEPLOY, ClimbConstants.SHOOTER_PITCH_SOLENOID_RETRACT);
   }
 
-  public void enableCompressor() {
-    compressor.enableDigital();
-}
-
-public void disableCompressor() {
-    compressor.disable();
-}
-
-public void pitchUp(){
+public void extendCylinder(){
    climbSolenoid.set(DoubleSolenoid.Value.kForward);
 }
 
-public void pitchDown(){
+public void retractCylinder(){
    climbSolenoid.set(DoubleSolenoid.Value.kReverse);
 }
 @Override
@@ -66,8 +56,7 @@ public void periodic() {}
   
    public Command climb() {
      return run(() -> {
-          enableCompressor();
-          pitchUp();
+          extendCylinder();
         })
         .withName("climb");
    }
@@ -80,8 +69,7 @@ public void periodic() {}
   public Command stop() {
     return runOnce(
             () -> {
-              disableCompressor();
-              pitchDown();
+              retractCylinder();
             })
         .withName("stop");
   }

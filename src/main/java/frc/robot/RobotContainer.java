@@ -79,6 +79,9 @@ public class RobotContainer {
   // .deadband(OIConstants.DRIVER_DEADBAND)
   // .allianceRelativeControl(true);
 
+  /**Pneumatics for Climb**/
+  public final Pneumatics climbPneumatics = Pneumatics.getInstance();
+
   /** Climb subsystem for handling climb mechanism. */
   private final Climb climb = Climb.getInstance();
 
@@ -105,6 +108,9 @@ public class RobotContainer {
 
     configureBindings();
     configureAutoChooser();
+    
+    //initialize pnuematic compressor
+    climbPneumatics.enableCompressor();
   }
 
   /**

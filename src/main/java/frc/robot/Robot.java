@@ -63,7 +63,9 @@ public class Robot extends TimedRobot {
 
   /** Called once when the robot is disabled. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    robotContainer.climbPneumatics.disableCompressor();
+  }
 
   /** Called periodically when the robot is disabled. */
   @Override
