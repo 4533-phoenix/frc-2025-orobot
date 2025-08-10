@@ -1,24 +1,11 @@
 package frc.robot.subsystems;
 
-import static edu.wpi.first.units.Units.Value;
-
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants;
-import frc.robot.RobotContainer;
 import frc.robot.Constants.ClimbConstants;
 
 /** Subsystem that controls the climbing mechanism. */
@@ -37,11 +24,15 @@ public class Climb extends SubsystemBase {
     }
     return instance;
   }
+
   private DoubleSolenoid climbSolenoid = null;
-  
+  private NetworkTable table;
+
   private Climb() {
   /*********TODO: what module type are we using?? *******/
-    climbSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, ClimbConstants.SHOOTER_PITCH_SOLENOID_DEPLOY, ClimbConstants.SHOOTER_PITCH_SOLENOID_RETRACT);
+  climbSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, ClimbConstants.CLIMB_SOLENOID_DEPLOY, ClimbConstants.CLIMB_SOLENOID_RETRACT);
+  
+  table = NetworkTableInstance.getDefault().getTable("Robot").getSubTable("Climb");
   }
 
 public void extendCylinder(){

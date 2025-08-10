@@ -82,8 +82,11 @@ public class RobotContainer {
   /**Pneumatics for Climb**/
   public final Pneumatics climbPneumatics = Pneumatics.getInstance();
 
-  /** Climb subsystem for handling climb mechanism. */
+  /** Climb subsystem for handling climb mechanism. **/
   private final Climb climb = Climb.getInstance();
+
+  /** Intake subsystem for handling coral arm **/
+  private final Intake intake = Intake.getInstance();
 
   // Add the SendableChooser for autonomous
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
@@ -146,6 +149,29 @@ public class RobotContainer {
 
   /** Configure operator controller bindings for game piece and mechanism controls */
   private void configureOperatorControls() {
+     // ---- CORAL MANIPULATOR CONTROLS ----
+     operatorController.b().onTrue(intake.intakeCoral());
+     operatorController.a().onTrue(intake.scoreCoral());
+
+     // ---- CORAL ARM POSITION CONTROLS ----
+    // Each of these stops the manipulator before moving to ensure safe operation
+
+    // Set to score position
+        operatorController
+        .povUp()
+        .onTrue(
+            Commands.runOnce(
+                () ->
+                    intake.scorePosition().beforeStarting(intake.instantStop()).schedule()));
+
+  //Set to intake postion
+   operatorController
+        .povDown()
+        .onTrue(
+            Commands.runOnce(
+                () ->
+                    intake.intakePosition().beforeStarting(intake.instantStop()).schedule()));                 
+
   }
 
   /** Configure the autonomous command chooser with available options. */

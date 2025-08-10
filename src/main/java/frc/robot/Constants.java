@@ -39,12 +39,53 @@ public final class Constants {
     /** Private constructor to prevent instantiation. */
     private ClimbConstants() {}
 
-    /** PCM ID for the climb pneumatics. */
+    /** PCM ID for the Climb pneumatics. */
     public static final int PCM_ID = 14;
 
     /** Constants for Climb Solenoid */
-    public static final int SHOOTER_PITCH_SOLENOID_DEPLOY = 0;
-    public static final int SHOOTER_PITCH_SOLENOID_RETRACT = 1;
+    public static final int CLIMB_SOLENOID_DEPLOY = 0;
+    public static final int CLIMB_SOLENOID_RETRACT = 1;
+
+  }
+
+  /** Contatnts for coral Intake */
+  public static final class IntakeConstants {
+    private IntakeConstants() {}
+     
+    // Intake motor Constants
+    /** CAN ID for intake motor. */
+    /*** TODO: find out real values *****/
+    public static final int CAN_ID = 17;
+
+    /** DIO channel for coral sensor */
+    public static final int SENSOR_CHANNEL = 1;
+
+    /** Power level for intake operation */
+    public static final double INTAKE_POWER = 0.2;
+
+    /** Power level for dropping coral */
+    public static final double DROP_POWER = 1.0;
+
+    /** Power level for ejecting stuck objects */
+    public static final double EJECT_POWER = 0.5;
+
+    /** Whether manipulator motor is inverted */
+    public static final boolean INVERTED = false;
+
+    /** Current limit for manipulator motor in amps */
+    public static final int CURRENT_LIMIT = 20;
+
+    /** Ramp rate for manipulator motor (seconds from 0 to full throttle) */
+    public static final double RAMP_RATE = 0.1;
+
+    /** PCM ID for the Intake pneumatics. */
+    public static final int PCM_ID = 14;
+
+    /** Constants for Intake Solenoid */
+    public static final int INTAKE_SOLENOID_DEPLOY = 0;
+    public static final int INTAKE_SOLENOID_RETRACT = 1;
+
+
 
   }
 
