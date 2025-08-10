@@ -33,26 +33,19 @@ public final class Constants {
     /** Maximum speed of the robot in meters per second. */
     public static final LinearVelocity MAX_SPEED = MetersPerSecond.of(5.45);
   }
-
+/*************TODO: figure out real constant values for robot********************/
   /** Constants for the climbing mechanism. */
   public static final class ClimbConstants {
     /** Private constructor to prevent instantiation. */
     private ClimbConstants() {}
 
-    /** CAN ID for the climb motor. */
-    public static final int CAN_ID = 14;
+    /** PCM ID for the climb pneumatics. */
+    public static final int PCM_ID = 14;
 
-    /** Bottom limit channel for the climb. */
-    public static final int BOTTOM_LIMIT_CHANNEL = 9;
+    /** Constants for Climb Solenoid */
+    public static final int SHOOTER_PITCH_SOLENOID_DEPLOY = 0;
+    public static final int SHOOTER_PITCH_SOLENOID_RETRACT = 1;
 
-    /** Top limit channel for the climb. */
-    public static final int TOP_LIMIT_CHANNEL = 8;
-
-    /** Climb power for the climb. */
-    public static final double CLIMB_POWER = -0.8;
-
-    /** Whether the climb is inverted. */
-    public static final boolean IS_INVERTED = false;
   }
 
   /** Constants for operator interface (OI). */

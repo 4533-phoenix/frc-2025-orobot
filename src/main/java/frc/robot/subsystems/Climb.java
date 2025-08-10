@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import static edu.wpi.first.units.Units.Value;
+
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -8,15 +10,20 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.ClimbConstants;
 
 /** Subsystem that controls the climbing mechanism. */
 public class Climb extends SubsystemBase {
-  /** Singleton instance of the AlgaArm subsystem. */
+  /** Singleton instance of the CLimb subsystem. */
   private static Climb instance;
 
   /**
@@ -31,47 +38,39 @@ public class Climb extends SubsystemBase {
     return instance;
   }
 
-  private SparkMax climbMotor;
-  private DigitalInput topLimit;
-  private DigitalInput bottomLimit;
-  private NetworkTable table;
-
+  private Compressor compressor = new Compressor(ClimbConstants.PCM_ID ,PneumaticsModuleType.CTREPCM);
+  private DoubleSolenoid climbSolenoid = null;
+  
   private Climb() {
-    climbMotor = new SparkMax(ClimbConstants.CAN_ID, MotorType.kBrushless);
-    topLimit = new DigitalInput(ClimbConstants.TOP_LIMIT_CHANNEL);
-    bottomLimit = new DigitalInput(ClimbConstants.BOTTOM_LIMIT_CHANNEL);
-    table = NetworkTableInstance.getDefault().getTable("Robot").getSubTable("Climb");
-
-    SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
-    sparkMaxConfig.idleMode(IdleMode.kCoast);
-    sparkMaxConfig.inverted(ClimbConstants.IS_INVERTED);
-    sparkMaxConfig.smartCurrentLimit(30);
-    climbMotor.configure(
-        sparkMaxConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+  /*********TODO: what module type are we using?? *******/
+    climbSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, ClimbConstants.SHOOTER_PITCH_SOLENOID_DEPLOY, ClimbConstants.SHOOTER_PITCH_SOLENOID_RETRACT);
   }
 
-  /** Trigger that is active when the climb is at the top limit. */
-  public final Trigger atTop = new Trigger(() -> !topLimit.get());
+  public void enableCompressor() {
+    compressor.enableDigital();
+}
 
-  /** Trigger that is active when the climb is at the bottom limit. */
-  public final Trigger atBottom = new Trigger(() -> !bottomLimit.get());
+public void disableCompressor() {
+    compressor.disable();
+}
 
-  /**
-   * Climbs until the top limit is reached.
-   *
-   * @return A command that climbs.
-   */
-  public Command climb() {
-    return run(() -> {
-          climbMotor.set(ClimbConstants.CLIMB_POWER);
+public void pitchUp(){
+   climbSolenoid.set(DoubleSolenoid.Value.kForward);
+}
+
+public void pitchDown(){
+   climbSolenoid.set(DoubleSolenoid.Value.kReverse);
+}
+@Override
+public void periodic() {}
+  
+   public Command climb() {
+     return run(() -> {
+          enableCompressor();
+          pitchUp();
         })
-        .onlyWhile(atBottom.negate())
-        .finallyDo(
-            (interrupted) -> {
-              stop().schedule();
-            })
         .withName("climb");
-  }
+   }
 
   /**
    * Stops the climb.
@@ -81,14 +80,9 @@ public class Climb extends SubsystemBase {
   public Command stop() {
     return runOnce(
             () -> {
-              climbMotor.set(0);
+              disableCompressor();
+              pitchDown();
             })
         .withName("stop");
-  }
-
-  @Override
-  public void periodic() {
-    table.getEntry("bottomLimit").setBoolean(atBottom.getAsBoolean());
-    table.getEntry("topLimit").setBoolean(atTop.getAsBoolean());
   }
 }
