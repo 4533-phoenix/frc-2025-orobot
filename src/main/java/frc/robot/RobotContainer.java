@@ -79,6 +79,9 @@ public class RobotContainer {
   // .deadband(OIConstants.DRIVER_DEADBAND)
   // .allianceRelativeControl(true);
 
+  /** Coral intake subsystem */
+  private final CoralIntake coralIntake = CoralIntake.getInstance();
+
   /**Pneumatics for Climb**/
   public final Pneumatics climbPneumatics = Pneumatics.getInstance();
 

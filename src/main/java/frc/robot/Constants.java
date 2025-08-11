@@ -61,6 +61,14 @@ public final class Constants {
 
   }
 
+  public static final class CoralIntakeConstants {
+    private CoralIntakeConstants() {}
+
+    public static final int INTAKE_MOTOR_CAN_ID = 1;
+    public static final int CORAL_PRESENCE_LIMIT_CHANNEL = 1;
+    public static final double CORAL_INTAKE_POWER = -0.5;
+  }
+
   /** Constants for operator interface (OI). */
   public static final class OIConstants {
     private OIConstants() {}
