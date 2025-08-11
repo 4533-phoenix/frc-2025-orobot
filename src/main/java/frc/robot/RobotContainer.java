@@ -89,7 +89,7 @@ public class RobotContainer {
   private final Climb climb = Climb.getInstance();
 
   /** Intake subsystem for handling coral arm **/
-  private final Intake intake = Intake.getInstance();
+  private final CoralArm intake = CoralArm.getInstance();
 
   // Add the SendableChooser for autonomous
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
@@ -153,8 +153,8 @@ public class RobotContainer {
   /** Configure operator controller bindings for game piece and mechanism controls */
   private void configureOperatorControls() {
      // ---- CORAL MANIPULATOR CONTROLS ----
-     operatorController.b().onTrue(intake.intakeCoral());
-     operatorController.a().onTrue(intake.scoreCoral());
+     operatorController.b().onTrue(coralIntake.intake());
+     operatorController.a().onTrue(coralIntake.scoreCoral());
 
      // ---- CORAL ARM POSITION CONTROLS ----
     // Each of these stops the manipulator before moving to ensure safe operation
@@ -165,7 +165,7 @@ public class RobotContainer {
         .onTrue(
             Commands.runOnce(
                 () ->
-                    intake.scorePosition().beforeStarting(intake.instantStop()).schedule()));
+                    intake.scorePosition().beforeStarting(coralIntake.instantStop()).schedule()));
 
   //Set to intake postion
    operatorController
@@ -173,7 +173,7 @@ public class RobotContainer {
         .onTrue(
             Commands.runOnce(
                 () ->
-                    intake.intakePosition().beforeStarting(intake.instantStop()).schedule()));                 
+                    intake.intakePosition().beforeStarting(coralIntake.instantStop()).schedule()));                 
 
   }
 

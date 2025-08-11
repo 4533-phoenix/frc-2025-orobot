@@ -29,47 +29,24 @@ public final class Constants {
 
   }
 
-  /** Contatnts for coral Intake */
-  public static final class IntakeConstants {
-    private IntakeConstants() {}
-     
-    // Intake motor Constants
-    /** CAN ID for intake motor. */
-    /*** TODO: find out real values *****/
-    public static final int CAN_ID = 17;
-
-    /** DIO channel for coral sensor */
-    public static final int SENSOR_CHANNEL = 1;
-
-    /** Power level for intake operation */
-    public static final double INTAKE_POWER = 0.2;
-
-    /** Power level for dropping coral */
-    public static final double DROP_POWER = 1.0;
-
-    /** Whether manipulator motor is inverted */
-    public static final boolean INVERTED = false;
-
-    /** PCM ID for the Intake pneumatics. */
-    public static final int PCM_ID = 14;
-
-    /** Constants for Intake Solenoid */
-    public static final int INTAKE_SOLENOID_DEPLOY = 0;
-    public static final int INTAKE_SOLENOID_RETRACT = 1;
-
-
-
-  }
-
   public static final class CoralIntakeConstants {
     private CoralIntakeConstants() {}
 
     public static final int INTAKE_MOTOR_CAN_ID = 1;
     public static final int CORAL_PRESENCE_LIMIT_CHANNEL = 1;
     public static final double CORAL_INTAKE_POWER = -0.5;
+    public static final double CORAL_SCORE_POWER = 0.5;
+
+    
+    /** PCM ID for the Intake pneumatics. */
+    public static final int PCM_ID = 14;
+
+    /** Constants for Intake Solenoid */
+    public static final int INTAKE_SOLENOID_DEPLOY = 0;
+    public static final int INTAKE_SOLENOID_RETRACT = 1;
   }
 
-  /** Constants for operator interface (OI). */
+  /* Constants for operator interface (OI). */
   public static final class OIConstants {
     private OIConstants() {}
 

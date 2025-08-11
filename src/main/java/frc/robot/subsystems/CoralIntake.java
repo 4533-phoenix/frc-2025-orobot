@@ -4,8 +4,6 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -46,6 +44,13 @@ public class CoralIntake extends SubsystemBase {
             .withName("coralIntake");
     }
 
+    public Command scoreCoral(){
+        return run(() -> intakeMotor.set(CoralIntakeConstants.CORAL_SCORE_POWER))
+            .onlyWhile(coralPresent)
+            .andThen(instantStop());
+     }
+    
+
     /** Stops the coral intake motor */
     public Command stop() {
         return Commands.runOnce(() -> {
@@ -54,6 +59,20 @@ public class CoralIntake extends SubsystemBase {
             .withName("stop");
     }
 
+     /**
+   * Instantly stops the coral manipulator.
+   *
+   * @return A command that instantly stops the coral manipulator.
+   */
+  public Command instantStop() {
+    return runOnce(() -> stopMotor());
+  }
+
+  private void stopMotor() {
+    intakeMotor.set(0.0);
+  }
+
     public Command untuck() {
+            return null;
     }
 }
