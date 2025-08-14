@@ -1,17 +1,13 @@
 package frc.robot.subsystems;
 
-import static edu.wpi.first.units.Units.Degree;
 import static edu.wpi.first.units.Units.Meter;
 import static edu.wpi.first.units.Units.MetersPerSecond;
-import static edu.wpi.first.units.Units.Radian;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
-import com.pathplanner.lib.path.PathConstraints;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -53,10 +49,6 @@ public class Swerve extends SubsystemBase {
   private static Swerve instance;
   private SwerveDrive drivebase;
 
-  private PIDController thetaPID;
-  private PIDController translationXPID;
-  private PIDController translationYPID;
-
   /**
    * Returns the singleton instance of the Swerve subsystem. Creates a new instance if one does not
    * exist.
@@ -96,10 +88,6 @@ public class Swerve extends SubsystemBase {
     drivebase.setModuleEncoderAutoSynchronize(true, 1);
     drivebase.setChassisDiscretization(true, true, 0.02);
     drivebase.useExternalFeedbackSensor();
-
-    thetaPID = new PIDController(1.0, 0.0, 0.0);
-    translationXPID = new PIDController(7.5, 0.0, 0.0015);
-    translationYPID = new PIDController(7.5, 0.0, 0.0015);
 
     setupPathPlanner();
   }
