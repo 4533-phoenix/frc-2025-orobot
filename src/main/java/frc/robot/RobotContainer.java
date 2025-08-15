@@ -64,10 +64,10 @@ public class RobotContainer {
           .headingWhile(true);
 
   /** Coral intake subsystem */
-  private final CoralIntake coralIntake = CoralIntake.getInstance();
+  // private final CoralIntake coralIntake = CoralIntake.getInstance();
 
   /** Climb subsystem for handling climb mechanism. */
-  private final Climb climb = Climb.getInstance();
+  // private final Climb climb = Climb.getInstance();
 
   // Add the SendableChooser for autonomous
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
@@ -114,15 +114,18 @@ public class RobotContainer {
    */
   private void configureDriverControls() {
     // DEFAULT COMMAND - Field-oriented drive with automatic heading
-    Command driveFieldOrientedDirectAngle =
+    // Command driveFieldOrientedDirectAngle =
+    //     swerveDrive.driveFieldOriented(
+    //         driveInputStream
+    //             .copy()
+    //             .headingWhile(true));
+    Command justpleasework =
         swerveDrive.driveFieldOriented(
-            driveInputStream
-                .copy()
-                .headingWhile(true));
-    swerveDrive.setDefaultCommand(driveFieldOrientedDirectAngle);
+            driveInputStream);
+    swerveDrive.setDefaultCommand(justpleasework);
 
     // CLIMBING CONTROL
-    driverController.x().whileTrue(climb.climb());
+    // driverController.x().whileTrue(climb.climb());
   }
 
   /** Configure operator controller bindings for game piece and mechanism controls */

@@ -13,7 +13,7 @@ public final class Constants {
     private RobotConstants() {}
 
     /** Maximum speed of the robot in meters per second. */
-    public static final LinearVelocity MAX_SPEED = MetersPerSecond.of(5.45);
+    public static final LinearVelocity MAX_SPEED = MetersPerSecond.of(2.0);
   }
 
   /** Constants for the climbing mechanism. */
