@@ -72,8 +72,11 @@ public class RobotContainer {
   /** Climb subsystem for handling climb mechanism. **/
   private final Climb climb = Climb.getInstance();
 
-  /** Intake subsystem for handling coral arm **/
-  private final CoralArm intake = CoralArm.getInstance();
+  /** CoralArm subsystem for handling coral arm **/
+  private final CoralArm manipulatorCoralArm = CoralArm.getInstance();
+
+  /** CoralIntake subsystem for handling coral intake  */
+  private final CoralIntake intake = CoralIntake.getInstance();
 
   // Add the SendableChooser for autonomous
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
@@ -134,14 +137,14 @@ public class RobotContainer {
     swerveDrive.setDefaultCommand(justpleasework);
 
     // CLIMBING CONTROL
-    // driverController.x().whileTrue(climb.climb());
+     driverController.x().whileTrue(climb.climb());
   }
 
   /** Configure operator controller bindings for game piece and mechanism controls */
   private void configureOperatorControls() {
      // ---- CORAL MANIPULATOR CONTROLS ----
-     operatorController.b().onTrue(coralIntake.intake());
-     operatorController.a().onTrue(coralIntake.scoreCoral());
+     operatorController.b().onTrue(intake.intake());
+     operatorController.a().onTrue(intake.scoreCoral());
 
      // ---- CORAL ARM POSITION CONTROLS ----
     // Each of these stops the manipulator before moving to ensure safe operation
@@ -152,7 +155,7 @@ public class RobotContainer {
         .onTrue(
             Commands.runOnce(
                 () ->
-                    intake.scorePosition().beforeStarting(coralIntake.instantStop()).schedule()));
+                    manipulatorCoralArm.scorePosition().beforeStarting(intake.instantStop()).schedule()));
 
   //Set to intake postion
    operatorController
@@ -160,7 +163,7 @@ public class RobotContainer {
         .onTrue(
             Commands.runOnce(
                 () ->
-                    intake.intakePosition().beforeStarting(coralIntake.instantStop()).schedule()));                 
+                    manipulatorCoralArm.intakePosition().beforeStarting(intake.instantStop()).schedule()));                 
 
   }
 
