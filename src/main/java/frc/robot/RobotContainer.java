@@ -1,15 +1,10 @@
 package frc.robot;
 
-import java.util.function.Supplier;
-
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -68,19 +63,8 @@ public class RobotContainer {
           .allianceRelativeControl(true)
           .headingWhile(true);
 
-  // private final SwerveInputStream driveInputStream =
-  // SwerveInputStream.of(swerveDrive.getSwerveDrive(),
-  // () -> driverController.getLeftY() * -1,
-  // () -> driverController.getLeftX() * -1)
-  // .cubeTranslationControllerAxis(true)
-  // .scaleTranslation(1.0)
-  // .withControllerRotationAxis(() -> driverController.getLeftX() * -1)
-  // .cubeRotationControllerAxis(true)
-  // .deadband(OIConstants.DRIVER_DEADBAND)
-  // .allianceRelativeControl(true);
-
   /** Coral intake subsystem */
-  private final CoralIntake coralIntake = CoralIntake.getInstance();
+  // private final CoralIntake coralIntake = CoralIntake.getInstance();
 
   /**Pneumatics for Climb**/
   public final Pneumatics climbPneumatics = Pneumatics.getInstance();
@@ -139,15 +123,18 @@ public class RobotContainer {
    */
   private void configureDriverControls() {
     // DEFAULT COMMAND - Field-oriented drive with automatic heading
-    Command driveFieldOrientedDirectAngle =
+    // Command driveFieldOrientedDirectAngle =
+    //     swerveDrive.driveFieldOriented(
+    //         driveInputStream
+    //             .copy()
+    //             .headingWhile(true));
+    Command justpleasework =
         swerveDrive.driveFieldOriented(
-            driveInputStream
-                .copy()
-                .headingWhile(true));
-    swerveDrive.setDefaultCommand(driveFieldOrientedDirectAngle);
+            driveInputStream);
+    swerveDrive.setDefaultCommand(justpleasework);
 
     // CLIMBING CONTROL
-    driverController.x().whileTrue(climb.climb());
+    // driverController.x().whileTrue(climb.climb());
   }
 
   /** Configure operator controller bindings for game piece and mechanism controls */

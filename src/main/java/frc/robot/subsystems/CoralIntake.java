@@ -73,6 +73,6 @@ public class CoralIntake extends SubsystemBase {
   }
 
     public Command untuck() {
-            return null;
+        return null;
     }
 }

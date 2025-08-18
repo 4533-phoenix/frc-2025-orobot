@@ -12,7 +12,7 @@ public final class Constants {
     private RobotConstants() {}
 
     /** Maximum speed of the robot in meters per second. */
-    public static final LinearVelocity MAX_SPEED = MetersPerSecond.of(5.45);
+    public static final LinearVelocity MAX_SPEED = MetersPerSecond.of(2.0);
   }
 /*************TODO: figure out real constant values for robot********************/
   /** Constants for the climbing mechanism. */
@@ -33,7 +33,7 @@ public final class Constants {
     private CoralIntakeConstants() {}
 
     public static final int INTAKE_MOTOR_CAN_ID = 1;
-    public static final int CORAL_PRESENCE_LIMIT_CHANNEL = 1;
+    public static final int CORAL_PRESENCE_LIMIT_CHANNEL = 0;
     public static final double CORAL_INTAKE_POWER = -0.5;
     public static final double CORAL_SCORE_POWER = 0.5;
 
