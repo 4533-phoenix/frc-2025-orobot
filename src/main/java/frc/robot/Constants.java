@@ -41,7 +41,7 @@ public final class Constants {
     private CoralIntakeConstants() {}
 
     public static final int INTAKE_MOTOR_CAN_ID = 1;
-    public static final int CORAL_PRESENCE_LIMIT_CHANNEL = 1;
+    public static final int CORAL_PRESENCE_LIMIT_CHANNEL = 0;
     public static final double CORAL_INTAKE_POWER = -0.5;
   }
 
