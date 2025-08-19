@@ -1,7 +1,6 @@
 package frc.robot;
 
 import static edu.wpi.first.units.Units.MetersPerSecond;
-
 import edu.wpi.first.units.measure.LinearVelocity;
 
 /** Constants used throughout the robot code. */
@@ -15,26 +14,24 @@ public final class Constants {
     /** Maximum speed of the robot in meters per second. */
     public static final LinearVelocity MAX_SPEED = MetersPerSecond.of(2.0);
   }
+/*************TODO: figure out real constant values for robot********************/
+  public static final class PneumaticConstants {
+ /** PCM ID for the pneumatics. */
+    public static final int PCM_ID = 32;
+    public static final int CAN_ID = 1;
+}
 
   /** Constants for the climbing mechanism. */
   public static final class ClimbConstants {
     /** Private constructor to prevent instantiation. */
     private ClimbConstants() {}
 
-    /** CAN ID for the climb motor. */
-    public static final int CAN_ID = 14;
+   
 
-    /** Bottom limit channel for the climb. */
-    public static final int BOTTOM_LIMIT_CHANNEL = 9;
+    /** Constants for Climb Solenoid */
+    public static final int CLIMB_SOLENOID_DEPLOY = 0;
+    public static final int CLIMB_SOLENOID_RETRACT = 1;
 
-    /** Top limit channel for the climb. */
-    public static final int TOP_LIMIT_CHANNEL = 8;
-
-    /** Climb power for the climb. */
-    public static final double CLIMB_POWER = -0.8;
-
-    /** Whether the climb is inverted. */
-    public static final boolean IS_INVERTED = false;
   }
 
   public static final class CoralIntakeConstants {
@@ -43,9 +40,13 @@ public final class Constants {
     public static final int INTAKE_MOTOR_CAN_ID = 1;
     public static final int CORAL_PRESENCE_LIMIT_CHANNEL = 0;
     public static final double CORAL_INTAKE_POWER = -0.5;
+    public static final double CORAL_SCORE_POWER = 0.5;
+
+    /** Constants for Intake Solenoid */
+    public static final int INTAKE_SOLENOID_CHANNEL = 0;
   }
 
-  /** Constants for operator interface (OI). */
+  /* Constants for operator interface (OI). */
   public static final class OIConstants {
     private OIConstants() {}
 

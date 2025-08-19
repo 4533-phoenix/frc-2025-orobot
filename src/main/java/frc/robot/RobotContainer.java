@@ -66,8 +66,17 @@ public class RobotContainer {
   /** Coral intake subsystem */
   // private final CoralIntake coralIntake = CoralIntake.getInstance();
 
-  /** Climb subsystem for handling climb mechanism. */
-  // private final Climb climb = Climb.getInstance();
+  /**Pneumatics for Climb**/
+  public final Pneumatics pneumatics = Pneumatics.getInstance();
+
+  /** Climb subsystem for handling climb mechanism. **/
+  private final Climb climb = Climb.getInstance();
+
+  /** CoralArm subsystem for handling coral arm **/
+  private final CoralArm manipulatorCoralArm = CoralArm.getInstance();
+
+  /** CoralIntake subsystem for handling coral intake  */
+  private final CoralIntake intake = CoralIntake.getInstance();
 
   // Add the SendableChooser for autonomous
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
@@ -92,6 +101,8 @@ public class RobotContainer {
 
     configureBindings();
     configureAutoChooser();
+    
+    //initialize pnuematic compressor
   }
 
   /**
@@ -125,11 +136,34 @@ public class RobotContainer {
     swerveDrive.setDefaultCommand(justpleasework);
 
     // CLIMBING CONTROL
-    // driverController.x().whileTrue(climb.climb());
+     driverController.x().whileTrue(climb.climb());
   }
 
   /** Configure operator controller bindings for game piece and mechanism controls */
   private void configureOperatorControls() {
+     // ---- CORAL MANIPULATOR CONTROLS ----
+     operatorController.b().onTrue(intake.intake());
+     //operatorController.a().onTrue(intake.scoreCoral());
+
+     // ---- CORAL ARM POSITION CONTROLS ----
+    // Each of these stops the manipulator before moving to ensure safe operation
+
+    // Set to score position
+        operatorController
+        .povUp()
+        .onTrue(
+            Commands.runOnce(
+                () ->
+                    manipulatorCoralArm.scorePosition().beforeStarting(intake.stop()).schedule()));
+
+  //Set to intake postion
+   operatorController
+        .povDown()
+        .onTrue(
+            Commands.runOnce(
+                () ->
+                    manipulatorCoralArm.intakePosition().beforeStarting(intake.stop()).schedule()));                 
+
   }
 
   /** Configure the autonomous command chooser with available options. */
