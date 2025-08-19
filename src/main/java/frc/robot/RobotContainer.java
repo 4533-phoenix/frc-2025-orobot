@@ -150,8 +150,17 @@ public class RobotContainer {
    */
   private void configureOperatorControls() {
     // ---- CORAL MANIPULATOR CONTROLS ----
-    operatorController.b().onTrue(intake.intake());
-    // operatorController.a().onTrue(intake.scoreCoral());
+    operatorController.a().onTrue(intake.stop());
+    operatorController.x().onTrue(intake.retainCoral());
+
+    operatorController.leftBumper().onTrue(intake.intake());
+    operatorController.rightBumper().onTrue(Commands.runOnce(() -> {
+      manipulatorCoralArm.scorePosition()
+        .beforeStarting(intake.retainCoral())
+        .andThen(intake.scoreCoral())
+        .withName("actuallyScoreTheCoral")
+        .schedule();
+    }));
 
     // ---- CORAL ARM POSITION CONTROLS ----
     // Each of these stops the manipulator before moving to ensure safe operation
@@ -161,14 +170,14 @@ public class RobotContainer {
         .povUp()
         .onTrue(
             Commands.runOnce(
-                () -> manipulatorCoralArm.scorePosition().beforeStarting(intake.stop()).schedule()));
+                () -> manipulatorCoralArm.scorePosition().beforeStarting(intake.retainCoral()).schedule()));
 
     // Set to intake postion
     operatorController
         .povDown()
         .onTrue(
             Commands.runOnce(
-                () -> manipulatorCoralArm.intakePosition().beforeStarting(intake.stop()).schedule()));
+                () -> manipulatorCoralArm.intakePosition().beforeStarting(intake.retainCoral()).schedule()));
 
   }
 
