@@ -21,7 +21,7 @@ public final class Constants {
     private ClimbConstants() {}
 
     /** PCM ID for the Climb pneumatics. */
-    public static final int PCM_ID = 14;
+    public static final int PCM_ID = 32;
 
     /** Constants for Climb Solenoid */
     public static final int CLIMB_SOLENOID_DEPLOY = 0;

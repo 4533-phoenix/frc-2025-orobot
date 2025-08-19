@@ -29,7 +29,6 @@ public class Climb extends SubsystemBase {
   private NetworkTable table;
 
   private Climb() {
-  /*********TODO: what module type are we using?? *******/
   climbSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, ClimbConstants.CLIMB_SOLENOID_DEPLOY, ClimbConstants.CLIMB_SOLENOID_RETRACT);
   
   table = NetworkTableInstance.getDefault().getTable("Robot").getSubTable("Climb");

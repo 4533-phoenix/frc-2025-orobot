@@ -36,7 +36,6 @@ public class CoralArm extends SubsystemBase {
   private NetworkTable table;
 
   private CoralArm() {
-    /*********TODO: what module type are we using?? *******/
     intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, CoralIntakeConstants.INTAKE_SOLENOID_DEPLOY, CoralIntakeConstants.INTAKE_SOLENOID_RETRACT);
   
     table = NetworkTableInstance.getDefault().getTable("Robot").getSubTable("Intake");

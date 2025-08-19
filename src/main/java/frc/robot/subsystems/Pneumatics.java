@@ -8,7 +8,7 @@ import frc.robot.Constants.*;
 public final class Pneumatics implements Subsystem {
     private static Pneumatics mInstance;
 
-    private Compressor compressor = new Compressor(ClimbConstants.PCM_ID ,PneumaticsModuleType.CTREPCM);
+    private Compressor compressor = new Compressor(ClimbConstants.PCM_ID ,PneumaticsModuleType.REVPH);
 
     public Pneumatics() {}
 
