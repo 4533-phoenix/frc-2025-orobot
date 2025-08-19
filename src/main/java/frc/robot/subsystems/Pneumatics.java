@@ -10,7 +10,7 @@ public final class Pneumatics implements Subsystem {
     private static Pneumatics mInstance;
 
     public static PneumaticHub hub = new PneumaticHub(PneumaticConstants.CAN_ID);
-    private Compressor compressor = new Compressor(PneumaticConstants.PCM_ID, PneumaticsModuleType.REVPH);
+    private Compressor compressor = new Compressor(PneumaticConstants.COMPRESSOR_PCM_ID, PneumaticsModuleType.REVPH);
 
     public Pneumatics() {
     }

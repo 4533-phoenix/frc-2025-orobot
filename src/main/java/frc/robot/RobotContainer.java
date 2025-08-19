@@ -153,8 +153,13 @@ public class RobotContainer {
     operatorController.a().onTrue(intake.stop());
     operatorController.x().onTrue(intake.retainCoral());
 
-    operatorController.leftBumper().onTrue(intake.intake());
-    operatorController.rightBumper().onTrue(Commands.runOnce(() -> {
+    operatorController.leftTrigger().onTrue(Commands.runOnce(() -> {
+      manipulatorCoralArm.intakePosition()
+        .andThen(intake.intake())
+        .withName("actuallyIntakeTheCoral")
+        .schedule();
+    }));
+    operatorController.rightTrigger().onTrue(Commands.runOnce(() -> {
       manipulatorCoralArm.scorePosition()
         .beforeStarting(intake.retainCoral())
         .andThen(intake.scoreCoral())
@@ -167,14 +172,14 @@ public class RobotContainer {
 
     // Set to score position
     operatorController
-        .povUp()
+        .y()
         .onTrue(
             Commands.runOnce(
                 () -> manipulatorCoralArm.scorePosition().beforeStarting(intake.retainCoral()).schedule()));
 
     // Set to intake postion
     operatorController
-        .povDown()
+        .b()
         .onTrue(
             Commands.runOnce(
                 () -> manipulatorCoralArm.intakePosition().beforeStarting(intake.retainCoral()).schedule()));

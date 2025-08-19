@@ -22,8 +22,8 @@ public final class Constants {
    ********************/
   public static final class PneumaticConstants {
     /** PCM ID for the pneumatics. */
-    public static final int PCM_ID = 32;
-    public static final int CAN_ID = 1;
+    public static final int COMPRESSOR_PCM_ID = 21;
+    public static final int CAN_ID = 47;
   }
 
   /** Constants for the climbing mechanism. */
@@ -33,8 +33,8 @@ public final class Constants {
     }
 
     /** Constants for Climb Solenoid */
-    public static final int CLIMB_SOLENOID_DEPLOY = 0;
-    public static final int CLIMB_SOLENOID_RETRACT = 1;
+    public static final int CLIMB_SOLENOID_DEPLOY = 4;
+    public static final int CLIMB_SOLENOID_RETRACT = 6;
 
   }
 
@@ -44,12 +44,12 @@ public final class Constants {
 
     public static final int INTAKE_MOTOR_CAN_ID = 48;
     public static final int CORAL_PRESENCE_LIMIT_CHANNEL = 0;
-    public static final double CORAL_INTAKE_POWER = -0.5;
+    public static final double CORAL_INTAKE_POWER = -0.3;
     public static final double CORAL_RETAIN_POWER = -0.05;
-    public static final double CORAL_SCORE_POWER = 0.5;
+    public static final double CORAL_SCORE_POWER = 0.07;
 
     /** Constants for Intake Solenoid */
-    public static final int INTAKE_SOLENOID_CHANNEL = 0;
+    public static final int INTAKE_SOLENOID_CHANNEL = 2;
   }
 
   /* Constants for operator interface (OI). */
