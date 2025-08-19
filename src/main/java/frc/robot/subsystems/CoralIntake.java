@@ -33,44 +33,31 @@ public class CoralIntake extends SubsystemBase {
 
     /** Runs the coral intake motor until a coral is detected */
     public Command intake() {
-        return Commands.run(() -> {
-                intakeMotor.set(CoralIntakeConstants.CORAL_INTAKE_POWER);
-            })
+        return Commands.run(() -> intakeMotor.set(CoralIntakeConstants.CORAL_INTAKE_POWER))
             .onlyWhile(coralPresent.negate())
-            .finallyDo(
-                (interrupted) -> {
-                    stop().schedule();
-                })
+            .andThen(retainCoral())
             .withName("coralIntake");
     }
 
+    /** Runs the coral intake motor at a slower speed to hold on to it */
+    public Command retainCoral() {
+        return Commands.runOnce(() -> intakeMotor.set(CoralIntakeConstants.CORAL_RETAIN_POWER))
+            .withName("retainCoral");
+    }
+
+    /** Runs the coral intake motor in reverse to score it */
     public Command scoreCoral(){
         return run(() -> intakeMotor.set(CoralIntakeConstants.CORAL_SCORE_POWER))
             .onlyWhile(coralPresent)
-            .andThen(instantStop());
+            .andThen(stop())
+            .withName("scoreCoral");
      }
-    
 
     /** Stops the coral intake motor */
     public Command stop() {
-        return Commands.runOnce(() -> {
-                intakeMotor.set(0);
-            })
+        return Commands.runOnce(() -> intakeMotor.set(0))
             .withName("stop");
     }
-
-     /**
-   * Instantly stops the coral manipulator.
-   *
-   * @return A command that instantly stops the coral manipulator.
-   */
-  public Command instantStop() {
-    return runOnce(() -> stopMotor());
-  }
-
-  private void stopMotor() {
-    intakeMotor.set(0.0);
-  }
 
     public Command untuck() {
         return null;
