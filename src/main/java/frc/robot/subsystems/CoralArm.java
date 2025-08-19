@@ -16,8 +16,10 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkBase.ResetMode;
 
-
-/** Subsystem that controls the Coral Arm, responsible for moving the arm to different positions. */
+/**
+ * Subsystem that controls the Coral Arm, responsible for moving the arm to
+ * different positions.
+ */
 public class CoralArm extends SubsystemBase {
   private static CoralArm instance;
 
@@ -32,37 +34,40 @@ public class CoralArm extends SubsystemBase {
     }
     return instance;
   }
+
   private Solenoid intakeSolenoid = null;
   private NetworkTable table;
 
   private CoralArm() {
     intakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, CoralIntakeConstants.INTAKE_SOLENOID_CHANNEL);
-  
+
     table = NetworkTableInstance.getDefault().getTable("Robot").getSubTable("Intake");
   }
 
-/**
- * extend cylinder for intake position
- * 
- * @return A command that extends the cylinder and puts the arm in intake position.
- */
- public Command intakePosition() {
+  /**
+   * extend cylinder for intake position
+   * 
+   * @return A command that extends the cylinder and puts the arm in intake
+   *         position.
+   */
+  public Command intakePosition() {
     return run(() -> intakeSolenoid.set(true))
-       .withName("intakePosition");
+        .withName("intakePosition");
   }
 
- /**
-  * retract cylinder for scoring position
-  *
-  * @return A command that retracts the cylinder and puts the arm in scoring position.
-  */
- public Command scorePosition() {
-   return run(() -> intakeSolenoid.set(false))
-       .withName("scorePosition");
- } 
+  /**
+   * retract cylinder for scoring position
+   *
+   * @return A command that retracts the cylinder and puts the arm in scoring
+   *         position.
+   */
+  public Command scorePosition() {
+    return run(() -> intakeSolenoid.set(false))
+        .withName("scorePosition");
+  }
 
   @Override
   public void periodic() {
-    
+
   }
 }

@@ -10,9 +10,10 @@ public final class Pneumatics implements Subsystem {
     private static Pneumatics mInstance;
 
     public static PneumaticHub hub = new PneumaticHub(PneumaticConstants.CAN_ID);
-    private Compressor compressor = new Compressor(PneumaticConstants.PCM_ID ,PneumaticsModuleType.REVPH);
+    private Compressor compressor = new Compressor(PneumaticConstants.PCM_ID, PneumaticsModuleType.REVPH);
 
-    public Pneumatics() {}
+    public Pneumatics() {
+    }
 
     public static Pneumatics getInstance() {
         if (mInstance == null) {
@@ -33,5 +34,6 @@ public final class Pneumatics implements Subsystem {
     }
 
     @Override
-    public void periodic() {}
+    public void periodic() {
+    }
 }

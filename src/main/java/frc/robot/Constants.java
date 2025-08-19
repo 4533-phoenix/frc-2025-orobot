@@ -5,28 +5,32 @@ import edu.wpi.first.units.measure.LinearVelocity;
 
 /** Constants used throughout the robot code. */
 public final class Constants {
-  private Constants() {}
+  private Constants() {
+  }
 
   /** Constants for basic robot characteristics. */
   public static final class RobotConstants {
-    private RobotConstants() {}
+    private RobotConstants() {
+    }
 
     /** Maximum speed of the robot in meters per second. */
     public static final LinearVelocity MAX_SPEED = MetersPerSecond.of(2.0);
   }
-/*************TODO: figure out real constant values for robot********************/
+
+  /*************
+   * TODO: figure out real constant values for robot
+   ********************/
   public static final class PneumaticConstants {
- /** PCM ID for the pneumatics. */
+    /** PCM ID for the pneumatics. */
     public static final int PCM_ID = 32;
     public static final int CAN_ID = 1;
-}
+  }
 
   /** Constants for the climbing mechanism. */
   public static final class ClimbConstants {
     /** Private constructor to prevent instantiation. */
-    private ClimbConstants() {}
-
-   
+    private ClimbConstants() {
+    }
 
     /** Constants for Climb Solenoid */
     public static final int CLIMB_SOLENOID_DEPLOY = 0;
@@ -35,7 +39,8 @@ public final class Constants {
   }
 
   public static final class CoralIntakeConstants {
-    private CoralIntakeConstants() {}
+    private CoralIntakeConstants() {
+    }
 
     public static final int INTAKE_MOTOR_CAN_ID = 48;
     public static final int CORAL_PRESENCE_LIMIT_CHANNEL = 0;
@@ -49,7 +54,8 @@ public final class Constants {
 
   /* Constants for operator interface (OI). */
   public static final class OIConstants {
-    private OIConstants() {}
+    private OIConstants() {
+    }
 
     /** Driver controller port. */
     public static final int DRIVER_CONTROLLER_PORT = 0;
@@ -60,7 +66,8 @@ public final class Constants {
 
   /** Constants for field positions and points of interest */
   public static final class FieldConstants {
-    private FieldConstants() {}
+    private FieldConstants() {
+    }
 
     /** Field dimensions for 2025 Reefscape */
     public static final double FIELD_LENGTH_METERS = 17.548;

@@ -15,19 +15,24 @@ import frc.robot.helpers.CustomSwerveInput;
 import frc.robot.subsystems.*;
 
 /**
- * Main robot configuration class that binds controls and commands to subsystems. This class serves
- * as the robot's command center, managing all subsystem instances and their associated commands.
+ * Main robot configuration class that binds controls and commands to
+ * subsystems. This class serves
+ * as the robot's command center, managing all subsystem instances and their
+ * associated commands.
  *
- * <p>Features include:
+ * <p>
+ * Features include:
  *
  * <ul>
- *   <li>Driver control configuration
- *   <li>Command button mappings
- *   <li>Autonomous command selection
- *   <li>Subsystem instantiation and management
+ * <li>Driver control configuration
+ * <li>Command button mappings
+ * <li>Autonomous command selection
+ * <li>Subsystem instantiation and management
  * </ul>
  *
- * <p>The class follows a centralized control pattern, with all robot behaviors defined through
+ * <p>
+ * The class follows a centralized control pattern, with all robot behaviors
+ * defined through
  * command bindings and default commands.
  */
 public class RobotContainer {
@@ -35,8 +40,7 @@ public class RobotContainer {
   private final NetworkTable table = NetworkTableInstance.getDefault().getTable("Robot");
 
   /** Xbox controller used for driver input. */
-  private final CommandXboxController driverController =
-      new CommandXboxController(OIConstants.DRIVER_CONTROLLER_PORT);
+  private final CommandXboxController driverController = new CommandXboxController(OIConstants.DRIVER_CONTROLLER_PORT);
 
   /** "Xbox" controller used for operator input. */
   private final CommandXboxController operatorController = new CommandXboxController(1);
@@ -45,28 +49,28 @@ public class RobotContainer {
   private final Swerve swerveDrive = Swerve.getInstance();
 
   /**
-   * Input stream for swerve drive control. Configures how controller inputs are processed and
+   * Input stream for swerve drive control. Configures how controller inputs are
+   * processed and
    * applied to drive commands.
    */
-  private final CustomSwerveInput driveInputStream =
-      CustomSwerveInput.of(
-              swerveDrive.getSwerveDrive(),
-              () -> driverController.getLeftY() * -1,
-              () -> driverController.getLeftX() * -1)
-          .cubeTranslationControllerAxis(true)
-          .scaleTranslation(0.75)
-          .scaleTranslation(() -> driverController.rightBumper().getAsBoolean(), 0.5)
-          .withControllerHeadingAxis(
-              () -> driverController.getRightX() * -1, () -> driverController.getRightY() * -1)
-          .cubeRotationControllerAxis(true)
-          .deadband(OIConstants.DRIVER_DEADBAND)
-          .allianceRelativeControl(true)
-          .headingWhile(true);
+  private final CustomSwerveInput driveInputStream = CustomSwerveInput.of(
+      swerveDrive.getSwerveDrive(),
+      () -> driverController.getLeftY() * -1,
+      () -> driverController.getLeftX() * -1)
+      .cubeTranslationControllerAxis(true)
+      .scaleTranslation(0.75)
+      .scaleTranslation(() -> driverController.rightBumper().getAsBoolean(), 0.5)
+      .withControllerHeadingAxis(
+          () -> driverController.getRightX() * -1, () -> driverController.getRightY() * -1)
+      .cubeRotationControllerAxis(true)
+      .deadband(OIConstants.DRIVER_DEADBAND)
+      .allianceRelativeControl(true)
+      .headingWhile(true);
 
   /** Coral intake subsystem */
   // private final CoralIntake coralIntake = CoralIntake.getInstance();
 
-  /**Pneumatics for Climb**/
+  /** Pneumatics for Climb **/
   public final Pneumatics pneumatics = Pneumatics.getInstance();
 
   /** Climb subsystem for handling climb mechanism. **/
@@ -75,7 +79,7 @@ public class RobotContainer {
   /** CoralArm subsystem for handling coral arm **/
   private final CoralArm manipulatorCoralArm = CoralArm.getInstance();
 
-  /** CoralIntake subsystem for handling coral intake  */
+  /** CoralIntake subsystem for handling coral intake */
   private final CoralIntake intake = CoralIntake.getInstance();
 
   // Add the SendableChooser for autonomous
@@ -85,13 +89,14 @@ public class RobotContainer {
   public final Trigger endgame = new Trigger(() -> DriverStation.getMatchTime() <= 30);
 
   /**
-   * Creates a new RobotContainer and initializes all robot subsystems and commands. Performs the
+   * Creates a new RobotContainer and initializes all robot subsystems and
+   * commands. Performs the
    * following setup:
    *
    * <ul>
-   *   <li>Silences joystick warnings for unplugged controllers
-   *   <li>Disables controller rumble
-   *   <li>Configures button bindings for commands
+   * <li>Silences joystick warnings for unplugged controllers
+   * <li>Disables controller rumble
+   * <li>Configures button bindings for commands
    * </ul>
    */
   public RobotContainer() {
@@ -101,12 +106,13 @@ public class RobotContainer {
 
     configureBindings();
     configureAutoChooser();
-    
-    //initialize pnuematic compressor
+
+    // initialize pnuematic compressor
   }
 
   /**
-   * Configures button bindings for commands. Maps controller buttons to specific robot actions
+   * Configures button bindings for commands. Maps controller buttons to specific
+   * robot actions
    * organized by controller and function.
    */
   private void configureBindings() {
@@ -121,48 +127,48 @@ public class RobotContainer {
   }
 
   /**
-   * Configure driver controller bindings for drivetrain controls, autonomous features, and climb
+   * Configure driver controller bindings for drivetrain controls, autonomous
+   * features, and climb
    */
   private void configureDriverControls() {
     // DEFAULT COMMAND - Field-oriented drive with automatic heading
     // Command driveFieldOrientedDirectAngle =
-    //     swerveDrive.driveFieldOriented(
-    //         driveInputStream
-    //             .copy()
-    //             .headingWhile(true));
-    Command justpleasework =
-        swerveDrive.driveFieldOriented(
-            driveInputStream);
+    // swerveDrive.driveFieldOriented(
+    // driveInputStream
+    // .copy()
+    // .headingWhile(true));
+    Command justpleasework = swerveDrive.driveFieldOriented(
+        driveInputStream);
     swerveDrive.setDefaultCommand(justpleasework);
 
     // CLIMBING CONTROL
-     driverController.x().whileTrue(climb.climb());
+    driverController.x().whileTrue(climb.climb());
   }
 
-  /** Configure operator controller bindings for game piece and mechanism controls */
+  /**
+   * Configure operator controller bindings for game piece and mechanism controls
+   */
   private void configureOperatorControls() {
-     // ---- CORAL MANIPULATOR CONTROLS ----
-     operatorController.b().onTrue(intake.intake());
-     //operatorController.a().onTrue(intake.scoreCoral());
+    // ---- CORAL MANIPULATOR CONTROLS ----
+    operatorController.b().onTrue(intake.intake());
+    // operatorController.a().onTrue(intake.scoreCoral());
 
-     // ---- CORAL ARM POSITION CONTROLS ----
+    // ---- CORAL ARM POSITION CONTROLS ----
     // Each of these stops the manipulator before moving to ensure safe operation
 
     // Set to score position
-        operatorController
+    operatorController
         .povUp()
         .onTrue(
             Commands.runOnce(
-                () ->
-                    manipulatorCoralArm.scorePosition().beforeStarting(intake.stop()).schedule()));
+                () -> manipulatorCoralArm.scorePosition().beforeStarting(intake.stop()).schedule()));
 
-  //Set to intake postion
-   operatorController
+    // Set to intake postion
+    operatorController
         .povDown()
         .onTrue(
             Commands.runOnce(
-                () ->
-                    manipulatorCoralArm.intakePosition().beforeStarting(intake.stop()).schedule()));                 
+                () -> manipulatorCoralArm.intakePosition().beforeStarting(intake.stop()).schedule()));
 
   }
 
@@ -173,7 +179,8 @@ public class RobotContainer {
   }
 
   /**
-   * Provides the command to run during autonomous mode. Currently returns a placeholder command
+   * Provides the command to run during autonomous mode. Currently returns a
+   * placeholder command
    * that prints a message, indicating no autonomous routine is configured.
    *
    * @return the command to run in autonomous mode
