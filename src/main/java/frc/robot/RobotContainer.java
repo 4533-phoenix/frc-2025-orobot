@@ -67,7 +67,7 @@ public class RobotContainer {
   // private final CoralIntake coralIntake = CoralIntake.getInstance();
 
   /**Pneumatics for Climb**/
-  public final Pneumatics climbPneumatics = Pneumatics.getInstance();
+  public final Pneumatics pneumatics = Pneumatics.getInstance();
 
   /** Climb subsystem for handling climb mechanism. **/
   private final Climb climb = Climb.getInstance();
@@ -103,7 +103,6 @@ public class RobotContainer {
     configureAutoChooser();
     
     //initialize pnuematic compressor
-    climbPneumatics.enableCompressor();
   }
 
   /**

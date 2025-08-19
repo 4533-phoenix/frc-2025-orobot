@@ -15,13 +15,18 @@ public final class Constants {
     public static final LinearVelocity MAX_SPEED = MetersPerSecond.of(2.0);
   }
 /*************TODO: figure out real constant values for robot********************/
+  public static final class PneumaticConstants {
+ /** PCM ID for the pneumatics. */
+    public static final int PCM_ID = 32;
+    public static final int CAN_ID = 1;
+}
+
   /** Constants for the climbing mechanism. */
   public static final class ClimbConstants {
     /** Private constructor to prevent instantiation. */
     private ClimbConstants() {}
 
-    /** PCM ID for the Climb pneumatics. */
-    public static final int PCM_ID = 32;
+   
 
     /** Constants for Climb Solenoid */
     public static final int CLIMB_SOLENOID_DEPLOY = 0;
@@ -37,13 +42,8 @@ public final class Constants {
     public static final double CORAL_INTAKE_POWER = -0.5;
     public static final double CORAL_SCORE_POWER = 0.5;
 
-    
-    /** PCM ID for the Intake pneumatics. */
-    public static final int PCM_ID = 14;
-
     /** Constants for Intake Solenoid */
-    public static final int INTAKE_SOLENOID_DEPLOY = 0;
-    public static final int INTAKE_SOLENOID_RETRACT = 1;
+    public static final int INTAKE_SOLENOID_CHANNEL = 0;
   }
 
   /* Constants for operator interface (OI). */
