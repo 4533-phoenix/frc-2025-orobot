@@ -29,20 +29,19 @@ public class Climb extends SubsystemBase {
   private NetworkTable table;
 
   private Climb() {
-  climbSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, ClimbConstants.CLIMB_SOLENOID_DEPLOY, ClimbConstants.CLIMB_SOLENOID_RETRACT);
-  
-  table = NetworkTableInstance.getDefault().getTable("Robot").getSubTable("Climb");
+    climbSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, ClimbConstants.CLIMB_SOLENOID_DEPLOY, ClimbConstants.CLIMB_SOLENOID_RETRACT);
+    table = NetworkTableInstance.getDefault().getTable("Robot").getSubTable("Climb");
   }
 
-public void extendCylinder(){
-   climbSolenoid.set(DoubleSolenoid.Value.kForward);
-}
+  public void extendCylinder(){
+     climbSolenoid.set(DoubleSolenoid.Value.kForward);
+  }
 
-public void retractCylinder(){
-   climbSolenoid.set(DoubleSolenoid.Value.kReverse);
-}
-@Override
-public void periodic() {}
+  public void retractCylinder(){
+     climbSolenoid.set(DoubleSolenoid.Value.kReverse);
+  }
+  @Override
+  public void periodic() {}
   
    public Command climb() {
      return run(() -> {

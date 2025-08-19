@@ -58,8 +58,4 @@ public class CoralIntake extends SubsystemBase {
         return Commands.runOnce(() -> intakeMotor.set(0))
             .withName("stop");
     }
-
-    public Command untuck() {
-        return null;
-    }
 }

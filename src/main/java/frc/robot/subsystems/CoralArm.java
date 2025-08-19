@@ -39,16 +39,7 @@ public class CoralArm extends SubsystemBase {
     intakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, CoralIntakeConstants.INTAKE_SOLENOID_CHANNEL);
   
     table = NetworkTableInstance.getDefault().getTable("Robot").getSubTable("Intake");
-
   }
-
-  public void extendCylinder(){
-    intakeSolenoid.set(true);
-  }
- 
- public void retractCylinder(){
-    intakeSolenoid.set(false);
- }
 
 /**
  * extend cylinder for intake position
@@ -56,9 +47,7 @@ public class CoralArm extends SubsystemBase {
  * @return A command that extends the cylinder and puts the arm in intake position.
  */
  public Command intakePosition() {
-    return run(() -> {
-         extendCylinder();
-       })
+    return run(() -> intakeSolenoid.set(true))
        .withName("intakePosition");
   }
 
@@ -68,10 +57,7 @@ public class CoralArm extends SubsystemBase {
   * @return A command that retracts the cylinder and puts the arm in scoring position.
   */
  public Command scorePosition() {
-   return run(
-           () -> {
-             retractCylinder();
-           })
+   return run(() -> intakeSolenoid.set(false))
        .withName("scorePosition");
  } 
 

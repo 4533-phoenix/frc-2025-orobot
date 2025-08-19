@@ -22,10 +22,12 @@ public final class Pneumatics implements Subsystem {
         return mInstance;
     }
 
+    /** Turn on the compressor */
     public void enableCompressor() {
         compressor.enableDigital();
     }
 
+    /** Turn off the compressor */
     public void disableCompressor() {
         compressor.disable();
     }
