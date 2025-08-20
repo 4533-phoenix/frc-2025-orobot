@@ -45,6 +45,10 @@ public class CoralArm extends SubsystemBase {
     table = NetworkTableInstance.getDefault().getTable("Robot").getSubTable("Intake");
   }
 
+  private void rawIntakePos() {
+    intakeSolenoid.set(true);
+  }
+
   /**
    * extend cylinder for intake position
    * 
@@ -52,7 +56,7 @@ public class CoralArm extends SubsystemBase {
    *         position.
    */
   public Command intakePosition() {
-    return Commands.runOnce(() -> intakeSolenoid.set(true))
+    return Commands.runOnce(() -> rawIntakePos())
         .withName("intakePosition");
   }
 

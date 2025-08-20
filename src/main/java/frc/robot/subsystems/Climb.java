@@ -25,11 +25,11 @@ public class Climb extends SubsystemBase {
     return instance;
   }
 
-  private DoubleSolenoid climbSolenoid = null;
+  private DoubleSolenoid climbSolenoid;
   private NetworkTable table;
 
   private Climb() {
-    climbSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, ClimbConstants.CLIMB_SOLENOID_DEPLOY,
+    climbSolenoid = Pneumatics.getInstance().getDoubleSolenoid(ClimbConstants.CLIMB_SOLENOID_DEPLOY,
         ClimbConstants.CLIMB_SOLENOID_RETRACT);
     table = NetworkTableInstance.getDefault().getTable("Robot").getSubTable("Climb");
   }

@@ -142,7 +142,8 @@ public class RobotContainer {
     swerveDrive.setDefaultCommand(justpleasework);
 
     // CLIMBING CONTROL
-    driverController.x().whileTrue(climb.climb());
+    driverController.y().onTrue(climb.climb());
+    driverController.a().onTrue(climb.stop());
   }
 
   /**
@@ -151,22 +152,17 @@ public class RobotContainer {
   private void configureOperatorControls() {
     // ---- CORAL MANIPULATOR CONTROLS ----
     operatorController.a().onTrue(intake.stop());
-    operatorController.x().onTrue(intake.retainCoral());
+    operatorController.x().onTrue(intake.scoreCoral());
 
     operatorController.leftTrigger().onTrue(
       Commands.sequence(
-        intake.intake(),
-        manipulatorCoralArm.intakePosition()
+        manipulatorCoralArm.intakePosition(),
+        Commands.waitSeconds(0.3),
+        intake.intake()
       )
     );
     operatorController.rightTrigger().onTrue(
-      Commands.sequence(
-        intake.retainCoral(),
-        Commands.waitSeconds(0.1),
-        manipulatorCoralArm.scorePosition(),
-        Commands.waitSeconds(0.1),
         intake.scoreCoral()
-      )
     );
 
     // ---- CORAL ARM POSITION CONTROLS ----
@@ -176,15 +172,13 @@ public class RobotContainer {
     operatorController
         .y()
         .onTrue(
-            Commands.runOnce(
-                () -> manipulatorCoralArm.scorePosition().beforeStarting(intake.retainCoral()).schedule()));
+            manipulatorCoralArm.scorePosition());
 
     // Set to intake postion
     operatorController
         .b()
         .onTrue(
-            Commands.runOnce(
-                () -> manipulatorCoralArm.intakePosition().beforeStarting(intake.retainCoral()).schedule()));
+            manipulatorCoralArm.intakePosition());
 
   }
 
