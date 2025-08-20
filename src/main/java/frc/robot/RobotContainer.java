@@ -152,7 +152,7 @@ public class RobotContainer {
   private void configureOperatorControls() {
     // ---- CORAL MANIPULATOR CONTROLS ----
     operatorController.a().onTrue(intake.stop());
-    operatorController.x().onTrue(intake.scoreCoral());
+    operatorController.x().onTrue(intake.intake());
 
     operatorController.leftTrigger().onTrue(
       Commands.sequence(
