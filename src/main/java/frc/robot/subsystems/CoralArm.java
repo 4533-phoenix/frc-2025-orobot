@@ -36,11 +36,11 @@ public class CoralArm extends SubsystemBase {
     return instance;
   }
 
-  private Solenoid intakeSolenoid = null;
+  private Solenoid intakeSolenoid;
   private NetworkTable table;
 
   private CoralArm() {
-    intakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, CoralIntakeConstants.INTAKE_SOLENOID_CHANNEL);
+    intakeSolenoid = Pneumatics.getInstance().getSolenoid(CoralIntakeConstants.INTAKE_SOLENOID_CHANNEL);
 
     table = NetworkTableInstance.getDefault().getTable("Robot").getSubTable("Intake");
   }
@@ -69,6 +69,5 @@ public class CoralArm extends SubsystemBase {
 
   @Override
   public void periodic() {
-
   }
 }

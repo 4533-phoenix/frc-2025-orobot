@@ -41,13 +41,13 @@ public class CoralIntake extends SubsystemBase {
 
     /** Runs the coral intake motor at a slower speed to hold on to it */
     public Command retainCoral() {
-        return Commands.runOnce(() -> intakeMotor.set(CoralIntakeConstants.CORAL_RETAIN_POWER))
+        return Commands.run(() -> intakeMotor.set(CoralIntakeConstants.CORAL_RETAIN_POWER))
                 .withName("retainCoral");
     }
 
     /** Runs the coral intake motor in reverse to score it */
     public Command scoreCoral() {
-        return run(() -> intakeMotor.set(CoralIntakeConstants.CORAL_SCORE_POWER))
+        return Commands.run(() -> intakeMotor.set(CoralIntakeConstants.CORAL_SCORE_POWER))
                 .onlyWhile(coralPresent)
                 .andThen(stop())
                 .withName("scoreCoral");

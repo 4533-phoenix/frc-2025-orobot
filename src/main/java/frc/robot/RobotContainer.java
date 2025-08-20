@@ -153,19 +153,21 @@ public class RobotContainer {
     operatorController.a().onTrue(intake.stop());
     operatorController.x().onTrue(intake.retainCoral());
 
-    operatorController.leftTrigger().onTrue(Commands.runOnce(() -> {
-      manipulatorCoralArm.intakePosition()
-        .andThen(intake.intake())
-        .withName("actuallyIntakeTheCoral")
-        .schedule();
-    }));
-    operatorController.rightTrigger().onTrue(Commands.runOnce(() -> {
-      manipulatorCoralArm.scorePosition()
-        .beforeStarting(intake.retainCoral())
-        .andThen(intake.scoreCoral())
-        .withName("actuallyScoreTheCoral")
-        .schedule();
-    }));
+    operatorController.leftTrigger().onTrue(
+      Commands.sequence(
+        intake.intake(),
+        manipulatorCoralArm.intakePosition()
+      )
+    );
+    operatorController.rightTrigger().onTrue(
+      Commands.sequence(
+        intake.retainCoral(),
+        Commands.waitSeconds(0.1),
+        manipulatorCoralArm.scorePosition(),
+        Commands.waitSeconds(0.1),
+        intake.scoreCoral()
+      )
+    );
 
     // ---- CORAL ARM POSITION CONTROLS ----
     // Each of these stops the manipulator before moving to ensure safe operation
