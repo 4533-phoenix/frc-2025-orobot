@@ -35,7 +35,10 @@ public class CoralIntake extends SubsystemBase {
     public Command intake() {
         return Commands.run(() -> intakeMotor.set(CoralIntakeConstants.CORAL_INTAKE_POWER))
                 .onlyWhile(coralPresent.negate())
-                .andThen(CoralArm.getInstance().scorePosition())
+                .andThen(Commands.sequence(
+                    stop(),
+                    CoralArm.getInstance().scorePosition()
+                ))
                 .withName("coralIntake");
     }
 

@@ -45,7 +45,6 @@ public final class Constants {
     public static final int INTAKE_MOTOR_CAN_ID = 48;
     public static final int CORAL_PRESENCE_LIMIT_CHANNEL = 0;
     public static final double CORAL_INTAKE_POWER = -0.3;
-    public static final double CORAL_RETAIN_POWER = -0.05;
     public static final double CORAL_SCORE_POWER = 1.0;
 
     /** Constants for Intake Solenoid */
