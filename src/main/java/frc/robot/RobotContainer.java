@@ -160,7 +160,8 @@ public class RobotContainer {
       Commands.sequence(
         manipulatorCoralArm.intakePosition(),
         Commands.waitSeconds(0.3),
-        intake.intake()
+        intake.intake(),
+        intake.stop()
       )
     );
     operatorController.rightTrigger().onTrue(
