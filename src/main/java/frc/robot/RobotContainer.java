@@ -5,6 +5,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -84,6 +85,7 @@ public class RobotContainer {
 
   // Add the SendableChooser for autonomous
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
+
 
   // Trigger for endgame
   public final Trigger endgame = new Trigger(() -> DriverStation.getMatchTime() <= 30);
@@ -186,6 +188,8 @@ public class RobotContainer {
   private void configureAutoChooser() {
     autoChooser.setDefaultOption("None", Commands.none());
     autoChooser.addOption("Simple Backward Drive", AutoCommands.simpleBackwardDrive());
+  
+    SmartDashboard.putData("Auto Chooser", autoChooser);
   }
 
   /**
