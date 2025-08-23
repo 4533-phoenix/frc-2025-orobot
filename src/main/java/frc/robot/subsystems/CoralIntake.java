@@ -42,7 +42,7 @@ public class CoralIntake extends SubsystemBase {
     /** Runs the coral intake motor in reverse to score it */
     public Command scoreCoral() {
         return Commands.run(() -> intakeMotor.set(CoralIntakeConstants.CORAL_SCORE_POWER))
-                .onlyWhile(coralPresent)
+                //.onlyWhile(coralPresent)
                 .andThen(stop())
                 .withName("scoreCoral");
     }
