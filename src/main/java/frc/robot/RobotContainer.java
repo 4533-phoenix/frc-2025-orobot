@@ -145,6 +145,8 @@ public class RobotContainer {
     // CLIMBING CONTROL
     driverController.y().onTrue(climb.climb());
     driverController.a().onTrue(climb.stop());
+
+    driverController.leftTrigger().onTrue(swerveDrive.correctRotation());
   }
 
   /**

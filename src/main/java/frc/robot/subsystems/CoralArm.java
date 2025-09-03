@@ -53,17 +53,19 @@ public class CoralArm extends SubsystemBase {
    *         position.
    */
   private Command setPosition(boolean value) {
-    boolean notInPos = intakeSolenoid.get() != value;
+    Trigger notInPos = new Trigger(() -> intakeSolenoid.get() != value);
 
-    if (notInPos) {
-      return Commands.sequence(
-        Commands.runOnce(() -> intakeSolenoid.set(value)),
+    return Commands.either(
+      Commands.sequence(
+        Commands.runOnce(() -> {
+          intakeSolenoid.set(value);
+        }),
         Commands.waitSeconds(0.3)
-      )
-          .withName("setPosition");
-    } else {
-      return Commands.none();
-    }
+      ),
+      Commands.none(),
+      notInPos
+    )
+        .withName("setPosition");
   }
 
   /**
