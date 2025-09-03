@@ -86,7 +86,6 @@ public class RobotContainer {
   // Add the SendableChooser for autonomous
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
 
-
   // Trigger for endgame
   public final Trigger endgame = new Trigger(() -> DriverStation.getMatchTime() <= 30);
 
@@ -154,18 +153,15 @@ public class RobotContainer {
   private void configureOperatorControls() {
     // ---- CORAL MANIPULATOR CONTROLS ----
     operatorController.a().onTrue(intake.stop());
-    operatorController.x().onTrue(intake.intake());
+    operatorController.x().whileTrue(intake.intake());
 
-    operatorController.leftTrigger().onTrue(
-      Commands.sequence(
-        manipulatorCoralArm.intakePosition(),
-        Commands.waitSeconds(0.3),
-        intake.intake()
-      )
-    );
-    operatorController.rightTrigger().onTrue(
-        intake.scoreCoral()
-    );
+    operatorController.leftTrigger().whileTrue(
+        Commands.sequence(
+            manipulatorCoralArm.intakePosition(),
+            intake.intake()))
+        .onFalse(
+            manipulatorCoralArm.scorePosition());
+    operatorController.rightTrigger().whileTrue(intake.scoreCoral());
 
     // ---- CORAL ARM POSITION CONTROLS ----
     // Each of these stops the manipulator before moving to ensure safe operation
@@ -188,7 +184,7 @@ public class RobotContainer {
   private void configureAutoChooser() {
     autoChooser.setDefaultOption("None", Commands.none());
     autoChooser.addOption("Simple Backward Drive", AutoCommands.simpleBackwardDrive());
-  
+
     SmartDashboard.putData("Auto Chooser", autoChooser);
   }
 

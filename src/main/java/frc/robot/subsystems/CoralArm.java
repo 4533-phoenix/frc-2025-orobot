@@ -45,8 +45,25 @@ public class CoralArm extends SubsystemBase {
     table = NetworkTableInstance.getDefault().getTable("Robot").getSubTable("Intake");
   }
 
-  private void rawIntakePos() {
-    intakeSolenoid.set(true);
+  /**
+   * set cylinder to a position
+   * 
+   * @param boolean The desired position value
+   * @return A command that extends the cylinder and puts the arm in intake
+   *         position.
+   */
+  private Command setPosition(boolean value) {
+    boolean notInPos = intakeSolenoid.get() != value;
+
+    if (notInPos) {
+      return Commands.sequence(
+        Commands.runOnce(() -> intakeSolenoid.set(value)),
+        Commands.waitSeconds(0.3)
+      )
+          .withName("setPosition");
+    } else {
+      return Commands.none();
+    }
   }
 
   /**
@@ -56,8 +73,7 @@ public class CoralArm extends SubsystemBase {
    *         position.
    */
   public Command intakePosition() {
-    return Commands.runOnce(() -> rawIntakePos())
-        .withName("intakePosition");
+    return setPosition(CoralIntakeConstants.INTAKE_POS_VAL);
   }
 
   /**
@@ -67,8 +83,7 @@ public class CoralArm extends SubsystemBase {
    *         position.
    */
   public Command scorePosition() {
-    return Commands.runOnce(() -> intakeSolenoid.set(false))
-        .withName("scorePosition");
+    return setPosition(CoralIntakeConstants.SCORE_POS_VAL);
   }
 
   @Override
