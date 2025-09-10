@@ -14,7 +14,7 @@ public final class Constants {
     }
 
     /** Maximum speed of the robot in meters per second. */
-    public static final LinearVelocity MAX_SPEED = MetersPerSecond.of(2.0);
+    public static final LinearVelocity MAX_SPEED = MetersPerSecond.of(4.0);
   }
 
   /*************

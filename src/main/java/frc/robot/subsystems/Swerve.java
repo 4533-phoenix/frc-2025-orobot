@@ -239,7 +239,7 @@ public class Swerve extends SubsystemBase {
 
   public Command correctRotation() { 
     return Commands.runOnce(() -> {
-      resetOdometry(new Pose2d(getPose().getTranslation(), new Rotation2d()));
+      resetOdometry(new Pose2d(getPose().getTranslation(), getAllianceRotation()));
     })
       .withName("correctRotation");
   }

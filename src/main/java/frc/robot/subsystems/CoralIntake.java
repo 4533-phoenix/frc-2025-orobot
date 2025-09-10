@@ -36,7 +36,7 @@ public class CoralIntake extends SubsystemBase {
     public Command intake() {
         return Commands.runEnd(
             () -> { intakeMotor.set(CoralIntakeConstants.CORAL_INTAKE_POWER); },
-            () -> { stop(); }
+            () -> { intakeMotor.set(0); }
         )
                 .withName("coralIntake");
     }
@@ -45,7 +45,7 @@ public class CoralIntake extends SubsystemBase {
     public Command scoreCoral() {
         return Commands.runEnd(
             () -> { intakeMotor.set(CoralIntakeConstants.CORAL_SCORE_POWER); },
-            () -> { stop(); }
+            () -> { intakeMotor.set(0); }
         )
                 .withName("scoreCoral");
     }
